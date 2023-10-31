@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Estilo para a cor do check (caixa de seleção) quando selecionado */
+        .roomType option:checked {
+            background-color: green;
+            /* Altera a cor de fundo para verde */
+            color: white;
+            /* Altera a cor do texto para branco */
+        }
+    </style>
+    <style>
+        .obrigatorio {
+            color: darkgreen;
+            /* Cor */
+            font-size: 10px;
+            /* Tamanho de fonte */
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            <div>Reserva de Hotel</div>
+            <img src="/favicon_package_v0.16/android-chrome-192x192.png" id="logo" alt="AgroCP Logo">
+
+        </h1>
+
+        <!-- Formulário para adicionar reserva de hotel -->
+        <form id="hotel-reservation-form">
+            <!-- Pergunta 1 -->
+            <div class="question-bubble">
+
+                <label for="hotel-name">Qual é o nome do hotel?</label>
+                <span class="obrigatorio">* Campo obrigatório</span>
+                <input type="text" id="hotel-name" name="hotelName" placeholder="Nome do Hotel" required>
+
+
+            </div>
+
+            <!-- Pergunta 2 e 3 (Datas de entrada e saída) -->
+            <div class="question-bubble">
+                <label for="check-in">Data de Entrada</label>
+                <span class="obrigatorio">* Campo obrigatório</span>
+                <input type="date" id="check-in" name="checkIn" required>
+
+                <label for="check-out">Data de Saída</label>
+                <span class="obrigatorio">* Campo obrigatório</span>
+                <input type="date" id="check-out" name="checkOut" required>
+
+            </div>
+
+            <!-- Pergunta 4 (Comodidades) -->
+            <div class="question-bubble">
+                <p><strong>Selecione as comodidades do quarto:</strong></p>
+                <input type="checkbox" id="amenity-1" name="amenities" value="Ar Condicionado">
+                <label for="amenity-1">Ar Condicionado</label>
+                <input type="checkbox" id="amenity-2" name="amenities" value="Wifi">
+                <label for="amenity-2">Wi-fi</label>
+                <input type="checkbox" id="amenity-3" name="amenities" value="Café da Manhã">
+                <label for="amenity-3">Café da Manhã</label>
+            </div>
+
+            <div class="question-bubble">
+                <p><strong>Tipo de Quarto:</strong></p>
+                <select name="roomType" id="roomType" title="Selecione o tipo de quarto">
+                    <option value="Simples">Simples</option>
+                    <option value="Duplo">Duplo</option>
+                    <option value="Triplo">Triplo</option>
+                    <option value="Suíte">Suíte</option>
+                </select>
+            </div>
+
+
+            <!-- Pergunta 5 (Selecionável) -->
+            <div class="question-bubble">
+                <p><strong>Faturar para a AgroCP?</strong></p>
+                <input type="radio" id="faturamento-yes" name="faturamento" value="Sim">
+                <label for="faturamento-yes">Sim</label>
+                <input type="radio" id="faturamento-no" name="faturamento" value="Não">
+                <label for="faturamento-no">Não</label>
+            </div>
+
+
+
+
+            <!-- Pergunta 6 (Nome do Hóspede e Documento no mesmo balão) -->
+            <div class="question-bubble">
+
+                <p><strong>Nome e Documento dos Hóspedes:</strong>
+                <div>
+                    </p><span class="obrigatorio">* Campo obrigatório</span>
+                </div>
+
+                <input type="text" id="guest-name" name="guestName" placeholder="Nome do Hóspede" required>
+
+                <input type="text" id="document" name="guestDocument" placeholder="Documento" required>
+
+
+                <div id="additional-guests">
+
+                    <!-- Aqui serão adicionados os campos de hóspedes adicionais -->
+                </div>
+            </div>
+
+
+
+        </form>
+
+        <div id="notification" class="hidden">Por favor, preencha todos os campos obrigatórios.</div>
+        <div id="notification2" class="hidden">Você deve adicionar pelo menos uma reserva antes de gerar o PDF.</div>
+
+        <button class="round-button" id="add-guest-button">Adicionar Hóspede</button>
+        <button class="round-button" id="add-reservation-button">Adicionar Reserva</button>
+
+        <!-- Botão para gerar PDF -->
+        <button class="round-button" id="generate-pdf-button">Gerar PDF</button>
+
+
+
+        <!-- Espaço para exibir as reservas adicionadas -->
+        <div id="reservations"></div>
+    </div>
+
+    <div id="custom-alert" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeCustomAlert()">&times;</span>
+            <p>Desenvolvido pela equipe AgroCP TI.</p>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
